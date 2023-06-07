@@ -1,0 +1,49 @@
+{% extends 'dashboard/base.html' %} 
+{% load static %} 
+{% block content %}
+
+<style>
+    .footer{
+        margin-top: 10%;
+    }
+    h2{
+        color:brown
+    }
+    p{
+        text-align: justify;
+    }
+</style>
+
+
+<section class='text-center container'>
+    <h2>Search Wikipedia</h2>
+    <b>Enter without any space</b>
+    <hr>
+    <form action="" method="post">
+    {% csrf_token %}
+    {{form}}
+        <input class="btn btn-danger" type="submit" value="Submit">
+    </form>
+    
+    <br>
+    
+    <div class="container">
+        <div class="content-section p-0 mt-5">
+            <a href="{{link}}"  target="_blank">
+                <div class="custom-header">
+                    <h2>{{title}}</h2>
+                    <h6>{{link}}</h6>
+                </div>
+            </a>
+
+            
+            <p class="description mt-5 p-3">
+                {{details}}
+            </p>
+            
+        </div>
+    </div>
+
+</section>
+
+{% endblock content %}

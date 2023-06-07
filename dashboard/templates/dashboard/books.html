@@ -1,0 +1,83 @@
+{% extends 'dashboard/base.html' %} 
+{% load static %} 
+{% block content %}
+
+<section class='text-center container'>
+    <h2>Search books and browse your favorite</h2>
+    <p>just enter the search query to obtain the results</p><b></b>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input class="btn btn-danger" type="submit" value="Submit">
+    </form>
+    
+    <br>
+
+    {% for result in results %}
+    <a href="{{result.preview}}" target="_blank">
+        <div class="card">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <img class="img-fluid" src="{{result.thumbnail}}" alt="">
+
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="p-0 m-0" style="color: saddlebrown;">{{result.title}}</h3>
+                        {% if result.authors %}
+                            <h6 class="p-0 m-1" style="color:rgb(65, 138, 255);"> {{result.authors}}</h6>
+                            
+                        {% endif %}
+                       
+                            
+                         <h6 class="p-0 m-0" style="color: rgb(146, 145, 145);">{{result.subtitle}}</h6>
+                            
+                        <hr>
+                        {% if result.description %}
+                        <u>Description:</u> <br><br>
+                        <h6 class="p-0 m-1" style="text-align: justify;font-size: 13px;">{{result.description}}</h6>
+                        {% endif %}
+                         
+                            {% if results.categories %}
+                            <h6 class="ml-0 mt-3">Category: name
+                            {% for category in result.categories %}
+                                   {{category}}
+                            {% endfor %}
+                        </h6>
+                        {% endif %}
+                       <br>
+                        {% if result.count %}
+                            <h6 class="ml-0 mt-1" style="color: blueviolet;"><b>Pages: {{result.count}}</b></h6>
+                            {% endif %}
+                            {% if result.rating %}
+                            <h6 class="ml-0 mt-1">Rating: {{result.rating}}</h6>
+                        {% endif %}
+                        
+                    </div>
+                
+                
+                </div>
+            </div>
+        </div>
+    </a>
+    <br>
+
+    <form action="" method="post" class="form-inline mb-4">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+          <label for="review1" class="sr-only">Review</label>
+          <input type="text" readonly class="form-control-plaintext" value="Your Personal Review - ">
+        </div>
+        <div class="form-group mx-sm-3">
+          <label for="reviews" class="sr-only">Review</label>
+          <input type="text" class="form-control" placeholder="Enter your review..">
+        </div>
+        <button type="submit" class="btn btn-primary ">Submit</button>
+      </form>
+
+    {% endfor %}
+
+    <br>
+</section>
+
+{% endblock content %}

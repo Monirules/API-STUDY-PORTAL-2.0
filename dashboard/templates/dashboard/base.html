@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>NSU Study Portal</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    {% comment %} <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" /> --> {% endcomment %}
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+      
+      .example::-webkit-scrollbar {
+        display: none;
+      }
+      .col-md-3 .card {
+          width: 100%;
+          height: 100%;
+        }
+      .card{
+        width: 100%;
+        height: 100%;
+        margin:0, 0, 20px, 20px;
+      }  
+      .card-img-top{
+        height: 50%;
+      }
+      img:hover {       
+          opacity: 0.9;
+          transform: scale(0.98);
+          transition: 0.7s;
+      } 
+      .card:hover {
+        box-shadow: 6px 6px 16px rgb(111, 217, 255);
+        transition: 0.3s;
+        transform: scale(1.02);
+      }
+      a {
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+      }
+
+      a:hover {
+        text-decoration: none;
+        color: rgb(198, 0, 0);
+        transition: 0.2s;
+      }
+
+      .footer {
+        margin-top: 80px;
+        background-color: #333436;
+        padding: 70px 0;
+        
+      }
+      .footer-col {
+        width: 25%;
+        padding: 0 15px;
+      }
+      .footer-col h4 {
+        font-size: 18px;
+        color: #ffffff;
+        text-transform: capitalize;
+        margin-bottom: 35px;
+        font-weight: 500;
+        position: relative;
+      }
+      .footer-col h4::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        background-color: #e91e63;
+        height: 2px;
+        box-sizing: border-box;
+        width: 50px;
+      }
+      .footer-col ul li:not(:last-child) {
+        margin-bottom: 10px;
+      }
+      .footer-col a {
+        font-size: 16px;
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 300;
+        color: #d0d0d0;
+        display: block;
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
+      }
+      .footer-col a:hover {
+        color: #ffffff;
+        padding-left: 8px;
+        
+      }
+      .footer-col .social-links a {
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 0 10px 10px 0;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 50%;
+        color: #ffffff;
+        transition: all 0.5s ease;
+      }
+      .footer-col .social-links a:hover {
+        color: #24262b;
+        background-color: #ffffff;
+      }
+      .container {
+        max-width: 1170px;
+        margin: auto;
+      }
+      ul li a{
+        color: #d0d0d0;
+      }
+      nav a{
+        color: #d0d0d0;
+      }
+      nav a:hover {
+        color: #ffffff;
+      }      
+      ul li a:hover {
+        color: #ffffff;      
+      }
+
+      body {
+        background: linear-gradient(#d7f5fd,  #b4f0ff );
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        background-repeat: no-repeat;
+      }
+    </style>
+  </head>
+
+
+
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg" style="background-color: #01345B ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}" style="font-weight:bold;">
+            <img
+              src="{% static 'images/logo1.png' %}"
+              width="40"
+              height="40"
+              class="d-inline-block align-top"
+              alt=""
+            />
+            NSU Study Portal
+          </a>
+
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{% url 'home' %}"
+                  >Home</a
+                >
+              </li>
+
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Options
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'notes' %}">Notes</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'homework' %}">Homework</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'youtube' %}">Youtube</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'books' %}">Books</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'wiki' %}">Wikipedia</a>
+
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              </li>
+
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'register' %}"
+                  >Register</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'login' %}">Login</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <br /><br />
+
+    <main>
+      
+      {% block content %} {% endblock content %}
+    </main>
+
+
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="footer-col">
+            <h4>About Us</h4>
+            
+              <a href="home">Privacy policy</a>
+              <a href="contact">Consumers' Reviews</a>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Our Services</h4>
+              <a href="">Notes</a>
+              <a
+                  href=""
+                  target="_blank"
+                  >Homework</a
+                >
+                <a
+                  href=""
+                  >Find Books</a
+                >
+              
+          </div>
+
+          <div class="footer-col">
+            <h4>Get Help</h4>
+            
+                <a href="FAQ" target="_blank">Frequently Asked Question</a>
+              
+                <a href="mailto: monirul.mahmud@northsouth.edu"
+                  >Issues & Queries</a
+                >
+              
+                <a href="mailto: support@cheapsolve.com">Contact Support</a>
+              
+          </div>
+
+          <div class="footer-col">
+            <h4>Follow us</h4>
+            <div class="social-links">
+              <a
+                style="background-color: #3b5998"
+                href="https://www.facebook.com/Cheap-Solve-247-103074332029561/?ref=pages_you_manage"
+                role="button"
+                target="blank"
+                ><i style="font-size: 20px" class="fa-brands fa-facebook"></i></i></a
+              >
+
+              <!-- Telegram -->
+              <a
+                style="background-color: #5889f1"
+                href="https://t.me/cheapsolve"
+                role="button"
+                target="blank"
+              >
+                <i style="font-size: 20px" class="fa-brands fa-telegram"> </i></a
+              >
+
+              <!-- Instagram-->
+
+              <a
+                style="background-color: Brown"
+                href="https://www.instagram.com/cheapsolve/"
+                role="button"
+                target="blank"
+              >
+                <i style="font-size: 20px" class="fa-brands fa-instagram"></i></a
+              >
+
+              <a
+                style="background-color: red"
+                href="https://www.youtube.com/channel/UC7cFrCjR7vEKKKUnCDS0vyQ"
+                role="button"
+                target="blank"
+              >
+                <i style="font-size: 20px" class="fa-brands fa-youtube"></i></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
